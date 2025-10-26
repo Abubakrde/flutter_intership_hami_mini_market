@@ -1,16 +1,34 @@
-# hami_mini_market_intership
+# 🛒 Hami MiniMarket (Week 1 Flutter Project)
 
-A new Flutter project.
+## 📖 Project Description
+Hami MiniMarket is a Flutter app built for my HamiSkills internship.  
+It’s a simple mobile app prototype introducing the community store for fresh fruits and vegetables.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🖼️ Screenshots
 
-A few resources to get you started if this is your first Flutter project:
+###  Splash Screen
+![Splash Screen](screenshots/splash_screen.PNG)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🏠 Home Screen
+![Home Screen](screenshots/HomeScreen.PNG)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### ℹ️ Product List Screen
+![Product List Screen](screenshots/ProductLis.PNG)
+
+### 🥕 Products Details Screen
+![Products  Details Screen](screenshots/product_Details.PNG)
+
+### Cart Screen 
+![Cart Screen ](screenshots/CartScreen.PNG)
+
+
+
+
+---
+
+## 🚀 How to Run
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Abubakrde/flutter_intership_hami_mini_market.git
