@@ -1,9 +1,14 @@
-# 🛒 Hami MiniMarket (Week 1 Flutter Project)
+# 🛒 Hami MiniMarket (Week 2 Flutter Project)
 
 ## 📖 Project Description
 Hami MiniMarket is a Flutter app built for my HamiSkills internship.  
 It’s a simple mobile app prototype introducing the community store for fresh fruits and vegetables.
 
+
+### Updates 
+user can add and remove the items in the cart 
+the user now can able to to provide delivery infotmation 
+also the use can place the order seccessfully.
 ---
 
 ## 🖼️ Screenshots
@@ -25,6 +30,22 @@ It’s a simple mobile app prototype introducing the community store for fresh f
 
 
 
+### CartScreen with remove and add buttons 
+![ updated Cart Screen ](screenshots/cart_with_removebuttons.PNG)
+
+
+
+### Form Validatiobs
+![ form Validations ](screenshots/validations.PNG)
+
+
+
+### Order Summary 
+![ Order Summary ](screenshots/order_placed.PNG)
+
+
+
+
 
 ---
 
@@ -32,3 +53,9 @@ It’s a simple mobile app prototype introducing the community store for fresh f
 1. Clone the repository:
    ```bash
    git clone https://github.com/Abubakrde/flutter_intership_hami_mini_market.git
+
+
+
+## Author 
+Abubakar Abdirahman
+
