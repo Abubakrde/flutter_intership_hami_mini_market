@@ -10,8 +10,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # Add these two lines for Week 3
+  provider: ^6.0.0 # Or the latest stable version
+  shared_preferences: ^2.0.0 # Or the latest stable version
 
   cupertino_icons: ^1.0.8
+
+    
+
+  
 
 dev_dependencies:
   flutter_test:

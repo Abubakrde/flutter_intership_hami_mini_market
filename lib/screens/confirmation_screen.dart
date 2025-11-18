@@ -1,4 +1,4 @@
-// File: confirmation_screen.dart
+// File: lib/screens/confirmation_screen.dart (FINALIZED)
 
 import 'package:flutter/material.dart';
 import 'home_screen.dart'; // Import to navigate back to Home
@@ -12,6 +12,7 @@ class ConfirmationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> items =
         orderDetails['items'] as List<Map<String, dynamic>>;
+    final String customerName = orderDetails['name'] ?? 'Customer';
 
     return Scaffold(
       appBar: AppBar(title: const Text('Order Confirmation')),
@@ -24,17 +25,17 @@ class ConfirmationScreen extends StatelessWidget {
             const Icon(Icons.check_circle, color: Colors.green, size: 80),
             const SizedBox(height: 20),
             const Text(
-              'Thank You for Your Order!',
+              'Order Received! 🎉',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 26,
                 fontWeight: FontWeight.bold,
                 color: Colors.green,
               ),
             ),
             const SizedBox(height: 10),
             Text(
-              'Your order has been successfully placed, ${orderDetails['name']}.',
+              'Thank you, $customerName. Your order details are below:',
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16),
             ),
@@ -46,9 +47,9 @@ class ConfirmationScreen extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const Divider(),
-            _buildDetailRow('Name:', orderDetails['name']),
-            _buildDetailRow('Phone:', orderDetails['phone']),
-            _buildDetailRow('Address:', orderDetails['address']),
+            _buildDetailRow('Name:', orderDetails['name'] ?? 'N/A'),
+            _buildDetailRow('Phone:', orderDetails['phone'] ?? 'N/A'),
+            _buildDetailRow('Address:', orderDetails['address'] ?? 'N/A'),
             const SizedBox(height: 20),
 
             // --- Order Summary ---

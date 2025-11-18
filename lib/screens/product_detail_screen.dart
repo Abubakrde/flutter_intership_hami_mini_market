@@ -1,7 +1,11 @@
 // File: product_detail_screen.dart
 
 import 'package:flutter/material.dart';
-import 'cart_screen.dart';
+// Import the CartNotifier
+import '../state/cart_notifier.dart';
+
+// Get the singleton instance of the cart notifier
+final CartNotifier cartNotifier = CartNotifier();
 
 class ProductDetailScreen extends StatefulWidget {
   final Map<String, dynamic> product;
@@ -13,65 +17,79 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-  // --- Updated Add to Cart Logic with Null Safety ---
+  // --- Fixed Add to Cart Logic using Notifier ---
   void _addToCart() {
-    // 1. Check if item already exists in the cart (by 'name')
-    final existingItemIndex = CartScreen.cartItems.indexWhere(
-      (item) => item['name'] == widget.product['name'],
-    );
-
-    setState(() {
-      if (existingItemIndex != -1) {
-        // 2. If it exists, safely retrieve existing quantity (defaulting to 1 if null/missing), then increment.
-        int currentQuantity =
-            (CartScreen.cartItems[existingItemIndex]['quantity'] as int?) ?? 1;
-        CartScreen.cartItems[existingItemIndex]['quantity'] =
-            currentQuantity + 1;
-      } else {
-        // 3. If it's new, add the product map with quantity 1
-        final productWithQuantity = Map<String, dynamic>.from(widget.product);
-        productWithQuantity['quantity'] = 1;
-        CartScreen.cartItems.add(productWithQuantity);
-      }
-    });
+    // FIX: Correcting the method name from 'addItem' to 'addToCart'.
+    cartNotifier.addToCart(widget.product);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          '${widget.product['name']} added to cart! Quantity updated.',
+          '${widget.product['name']} added to cart! Check your cart tab.',
         ),
+        duration: const Duration(milliseconds: 1500),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    // Safely parse the price
+    final price = (widget.product['price'] as num).toStringAsFixed(2);
+
     return Scaffold(
       appBar: AppBar(title: Text(widget.product['name'])),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(widget.product['image'], style: TextStyle(fontSize: 60)),
-            SizedBox(height: 10),
-            Text(widget.product['description']),
-            SizedBox(height: 10),
+            // Product Image/Emoji
             Text(
-              'Price: \$${widget.product['price']}',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              widget.product['image'],
+              style: const TextStyle(fontSize: 60),
+              textAlign: TextAlign.center,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 10),
+
+            // Product Description
+            Text(
+              widget.product['description'] ?? 'No description available.',
+              style: const TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+
+            // Product Price
+            Text(
+              'Price: \$$price',
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.green,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 30),
+
+            // Add to Cart Button
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                padding: EdgeInsets.symmetric(vertical: 12),
+                backgroundColor: Colors.green.shade700,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
               onPressed: _addToCart,
-              icon: Icon(Icons.add_shopping_cart, color: Colors.white),
-              label: Text(
+              icon: const Icon(Icons.add_shopping_cart, color: Colors.white),
+              label: const Text(
                 'Add to Cart',
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],

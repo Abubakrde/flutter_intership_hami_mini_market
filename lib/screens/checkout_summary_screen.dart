@@ -1,8 +1,11 @@
 // File: checkout_screen.dart
 
 import 'package:flutter/material.dart';
-import 'cart_screen.dart';
+import '../state/cart_notifier.dart'; // Import the Notifier
 import 'confirmation_screen.dart';
+
+// Get the singleton instance
+final CartNotifier cartNotifier = CartNotifier();
 
 class CheckoutScreen extends StatefulWidget {
   final double totalAmount;
@@ -24,9 +27,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       _formKey.currentState!.save();
 
       // Store current cart items before clearing them
-      final List<Map<String, dynamic>> itemsSnapshot = CartScreen.cartItems
+      final List<Map<String, dynamic>> itemsSnapshot = cartNotifier.items
           .map((item) => Map<String, dynamic>.from(item))
           .toList();
+
+      // Clear cart using the notifier's method
+      cartNotifier.clearCart();
 
       // Navigate to confirmation screen
       Navigator.pushReplacement(
@@ -43,9 +49,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           ),
         ),
       );
-
-      // Clear cart immediately after successful submission/navigation
-      CartScreen.cartItems.clear();
     }
   }
 
@@ -54,32 +57,37 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Checkout Details')),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Total Payable: \$${widget.totalAmount.toStringAsFixed(2)}',
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green,
+            children: <Widget>[
+              // Total Amount Display
+              Center(
+                child: Text(
+                  'Order Total: \$${widget.totalAmount.toStringAsFixed(2)}',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green.shade700,
+                  ),
                 ),
               ),
-              const Divider(height: 30),
+              const Divider(height: 40),
 
-              // Name Input
+              // Name Field
               TextFormField(
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Full Name',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.person),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  prefixIcon: const Icon(Icons.person),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your full name';
+                    return 'Please enter your name';
                   }
                   return null;
                 },
@@ -87,18 +95,19 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               ),
               const SizedBox(height: 15),
 
-              // Phone Input
+              // Phone Field
               TextFormField(
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Phone Number',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.phone),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  prefixIcon: const Icon(Icons.phone),
                 ),
                 keyboardType: TextInputType.phone,
                 validator: (value) {
-                  // Basic phone number validation
-                  if (value == null || value.isEmpty || value.length < 7) {
-                    return 'Please enter a valid phone number';
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a phone number';
                   }
                   return null;
                 },
@@ -106,12 +115,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               ),
               const SizedBox(height: 15),
 
-              // Address Input
+              // Address Field
               TextFormField(
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Delivery Address',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.location_on),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  prefixIcon: const Icon(Icons.location_on),
                 ),
                 maxLines: 3,
                 validator: (value) {
