@@ -18,22 +18,18 @@ also polishing the Main UI of the APP
 ###  Splash Screen
 ![Splash Screen](screenshots/splash_screen.PNG)
 
-## 🏠 Home Screen
-![Home Screen](screenshots/HomeScreen.PNG)
+
 
 ### ℹ️ Product List Screen
-![Product List Screen](screenshots/ProductLis.PNG)
+![Product List Screen](screenshots/updated_Home_Ui.PNG)
 
 ### 🥕 Products Details Screen
 ![Products  Details Screen](screenshots/product_Details.PNG)
 
-### Cart Screen 
-![Cart Screen ](screenshots/CartScreen.PNG)
 
 
 
-### CartScreen with remove and add buttons 
-![ updated Cart Screen ](screenshots/cart_with_removebuttons.PNG)
+
 
 ### Product List 
 ![cart List Items](screenshots/Cart_List.PNG) 
